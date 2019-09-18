@@ -1,7 +1,7 @@
 {
-  "name": "TEMPLATE",
+  "name": "expat-journal-backend",
   "version": "1.0.0",
-  "description": "NODE EXPRESS TEMPLATE",
+  "description": "The backend API for the Expat Journal project",
   "main": "server.js",
   "scripts": {
     "server": "nodemon index.js",
@@ -13,15 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/USER/REPO.git"
+    "url": "git+https://github.com/Build-Week-Expat-Journal-Sept-19/Back-End.git"
   },
   "keywords": [],
-  "author": "Team",
-  "license": "ISC",
+  "author": "Tyler Turnipseed",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/USER/REPO/issues"
+    "url": "https://github.com/Build-Week-Expat-Journal-Sept-19/Back-End/issues"
   },
-  "homepage": "https://github.com/USER/REPO#README",
   "devDependencies": {
     "jest": "^24.8.0",
     "nodemon": "^1.19.2",
