@@ -2,7 +2,8 @@ const db = require('../data/dbConfig.js')
 
 module.exports = {
     register,
-    login
+    login,
+    getUsers
 }
 
 function register(newUser) {
@@ -11,4 +12,8 @@ function register(newUser) {
 
 function login(user) {
     return db('users').where(user)
+}
+
+function getUsers() {
+    return db('users').select('id', 'username')
 }
