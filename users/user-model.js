@@ -9,6 +9,13 @@ const add = async user => {
   const [id] = await db('users').insert(user)
   return findById(id)
 }
+// const add = user => {
+//   db('users')
+//     .insert(user)
+//     .then(ids => {
+//       return findBy({ id: ids[0] })
+//     })
+// }
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
 const find = () => db('users')
@@ -27,5 +34,6 @@ const findById = id =>
 module.exports = {
   add,
   find,
-  findBy
+  findBy,
+  findById
 }
