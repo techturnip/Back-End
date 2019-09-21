@@ -9,7 +9,7 @@ const restricted = require('../auth/restricted-middleware.js')
 // base url '/api/users' --------------------------|
 // ------------------------------------------------|
 router.get('/', (req, res) => {
-  Users.getUsers()
+  Users.find()
     .then(users => {
       res.status(200).json(users)
     })
