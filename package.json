@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --verbose --watch",
-    "start": "node index.js"
+    "start": "node index.js",
+    "heroku-postbuild": "knex migrate:latest"
   },
   "jest": {
     "testEnvironment": "node"
