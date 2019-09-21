@@ -8,14 +8,14 @@ const restricted = require('../auth/restricted-middleware.js')
 // ================================================|
 // base url '/api/users' --------------------------|
 // ------------------------------------------------|
-router.get('/', restricted, (req,res) => {
-    Users.getUsers()
-        .then(users => {
-            res.status(200).json(users)
-        })
-        .catch(err => {
-            res.status(500).json({ message: 'Error getting users' })
-        })
+router.get('/', (req, res) => {
+  Users.getUsers()
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error getting users' })
+    })
 })
 // ------------------------------------------------|
 // EXPORT =========================================|
