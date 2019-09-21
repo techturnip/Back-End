@@ -10,14 +10,18 @@ This repository contains the source code for the Back End API developed for the 
 
 #### Endpoints
 
-**Auth:**
+**Auth (implemented):**
 
-- GET - `/api/auth/login`
-- POST - `/api/auth/register`
+- POST Request - `/api/auth/login`
+  -- username & password required for login
+  -- sends back success message, user object and auth token
+- POST Request - `/api/auth/register`
+  -- requires username, password, fname, lname, email
+  -- sends back sucess message, user object and auth token
 
-**Users:**
+**Users (not implemented yet):**
 
-**Posts:**
+**Posts (not implemented yet):**
 
 ---
 
