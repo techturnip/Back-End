@@ -1,7 +1,10 @@
 exports.up = function(knex) {
   return knex.schema
     .createTable('users', users => {
-      users.increments()
+      users
+        .increments('id')
+        .primary()
+        .notNullable()
 
       // First Name - REQUIRED
       users.string('fname', 128).notNullable()
