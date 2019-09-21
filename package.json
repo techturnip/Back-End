@@ -2,7 +2,7 @@
   "name": "expat-journal-backend",
   "version": "1.0.0",
   "description": "The backend API for the Expat Journal project",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --verbose --watch",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/Build-Week-Expat-Journal-Sept-19/Back-End.git"
   },
   "keywords": [],
-  "author": "Tyler Turnipseed",
+  "author": "Expat Journal Back End Team",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Build-Week-Expat-Journal-Sept-19/Back-End/issues"
