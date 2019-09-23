@@ -6,11 +6,11 @@ const db = require('../data/dbConfig.js')
 // ================================================|
 // Sep. 21 - Refactored for modularity ------------|
 const add = async user => {
-  const addedUser = await db('users')
-    .returning()
+  const ids = await db('users')
     .insert(user)
+    .returning('id')
 
-  return findById(addedUser[0])
+  return findBy({ id: ids[0] }).first()
 }
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
