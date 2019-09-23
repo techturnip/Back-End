@@ -11,8 +11,8 @@ function create(post) {
 
 //Find all post
 //==============================|
-function find(filter) {
-    return db('posts').where(filter);
+function find() {
+    return db('posts')
 }
 //------------------------------|
 
@@ -25,18 +25,18 @@ function findById() {
 }
 //------------------------------|
 
-//Find post by user
-//==============================|
-function findByUser() {
-    return db('posts')
-    .where({ user_id })
-    .first();
-}
-//------------------------------|
+// //Find post by user
+// //==============================|
+// function findByUser() {
+//     return db('posts')
+//     .where({ user_id })
+//     .first();
+// }
+// //------------------------------|
 
 module.exports = {
     create,
     find,
-    findById,
-    findByUser
+    findById
+    // findByUser
 }

@@ -1,13 +1,31 @@
 // IMPORTS/INITIALIZATION =========================|
 // ================================================|
 const router = require('express').Router()
-// const Posts = require('../posts/post-model.js')
+const Posts = require('../posts/post-model.js')
 // ------------------------------------------------|
 // DEFINE ENDPOINTS ===============================|
 // ================================================|
 // base url '/api/posts' --------------------------|
 // ------------------------------------------------|
-// Endpoint definitions will go in here
+
+//Get all posts
+//=================================================|
+router.get('/', (req, res) => {
+    Posts.find()
+    .then(posts => {
+        res.status(200).json(posts)
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'Error getting posts' })
+    })
+})
+// ------------------------------------------------|
+
+//Post a post
+//=================================================|
+router.post('/', (req, res) => {
+    Posts.create()
+})
 // ------------------------------------------------|
 // EXPORT =========================================|
 // ================================================|
