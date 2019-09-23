@@ -82,6 +82,7 @@ router.post('/login', (req, res) => {
         }
       })
       .catch(err => {
+        console.log(err)
         res.status(500).json({ error: 'Error logging in' })
       })
   } else {
