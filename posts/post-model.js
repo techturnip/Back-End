@@ -36,8 +36,10 @@ function update(id, changes) {
 
 //Remove post
 //==============================|
-function remove() {
+function remove(id) {
     return db('posts')
+        .where({ id })
+        .del()
 }
 //------------------------------|
 

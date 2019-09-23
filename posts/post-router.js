@@ -2,6 +2,7 @@
 // ================================================|
 const router = require('express').Router()
 const Posts = require('../posts/post-model.js')
+const restricted = require('../auth/restricted-middleware.js')
 // ------------------------------------------------|
 // DEFINE ENDPOINTS ===============================|
 // ================================================|
@@ -38,12 +39,16 @@ router.post('/', (req, res) => {
             res.status(500).json({ message: 'Error creating posts' })
         })
 })
+// ------------------------------------------------|
 
-router.put('/:id', (req, res) => {
+//Update post
+//=================================================|
+router.put('/:id', restricted, (req, res) => {
     const { id } = req.params;
     const changes = req.body;
 
     Posts.update(id, changes)
+    //Function to see if post id
         // .then(post => {
         //     if(id > Posts.find().length){
         //         if (!changes) {
@@ -67,6 +72,22 @@ router.put('/:id', (req, res) => {
         })
 })
 // ------------------------------------------------|
+
+//Remove post
+//=================================================|
+router.delete('/:id', restricted, (req, res) => {
+    const { id } = req.params;
+
+    Posts.remove(id)
+    .then(deleted => {
+        res.status(204).json({ message: `Post has been deleted.`})
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'Error deleting post' })
+    })
+})
+// ------------------------------------------------|
+
 // EXPORT =========================================|
 // ================================================|
 module.exports = router
