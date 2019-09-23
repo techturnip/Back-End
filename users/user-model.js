@@ -15,17 +15,29 @@ const find = () => db('users')
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
 const findBy = filter => db('users').where(filter)
+  .then(console.log(`found user from ${filter}`))
 // ------------------------------------------------|
 // Sept. 21 - Added -------------------------------|
 const findById = id =>
   db('users')
     .where({ id })
     .first()
+    .then(console.log(`found user with id of ${id}`))
+
+// Find
+const findPosts = id => 
+  db('posts as p')
+  .join('users as u', 'u.id', 'p.id')
+  .select('p.id', 'p.user_id', 'p.title', 'p.city', 'p.country', 'p.content', 'p.imageURL')
+  .then(console.log(`found user posts from user with an id of ${id}`))
+  
 // ------------------------------------------------|
 // EXPORT =========================================|
 // ================================================|
 module.exports = {
   add,
   find,
-  findBy
+  findBy,
+  findById,
+  findPosts
 }
