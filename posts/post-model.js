@@ -26,13 +26,20 @@ function findById(id) {
 //------------------------------|
 
 //Update post by id
-function update() {
+//==============================|
+function update(id, changes) {
     return db('posts')
+        .where({ id })
+        .update(changes)
 }
+//------------------------------|
 
+//Remove post
+//==============================|
 function remove() {
     return db('posts')
 }
+//------------------------------|
 
 // //Find post by user
 // //==============================|
