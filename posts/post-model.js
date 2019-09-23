@@ -43,20 +43,10 @@ function remove(id) {
 }
 //------------------------------|
 
-// //Find post by user
-// //==============================|
-// function findByUser() {
-//     return db('posts')
-//     .where({ user_id })
-//     .first();
-// }
-// //------------------------------|
-
 module.exports = {
     create,
     find,
     findById,
-    // findByUser,
     update,
     remove
 }
