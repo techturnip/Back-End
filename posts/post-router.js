@@ -22,6 +22,21 @@ router.get('/', (req, res) => {
 })
 // ------------------------------------------------|
 
+//Get post by id
+//=================================================|
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Posts.findById(id)
+    .then(posts => {
+        res.status(200).json(posts)
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'Error getting posts' })
+    })
+})
+// ------------------------------------------------|
+
 //Post a post
 //=================================================|
 router.post('/', (req, res) => {
@@ -60,6 +75,8 @@ router.put('/:id', restricted, (req, res) => {
         //         res.status(404).json({ message: `there is no post with this id.`})
         //     }
         // })
+
+    //Default update function
         .then(post => {
                 if (!changes) {
                     res.status(404).json({ message: `Please fill out all information lines.`})
