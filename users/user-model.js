@@ -6,8 +6,11 @@ const db = require('../data/dbConfig.js')
 // ================================================|
 // Sep. 21 - Refactored for modularity ------------|
 const add = async user => {
-  const [id] = await db('users').insert(user)
-  return findById(id)
+  const ids = await db('users')
+    .insert(user)
+    .returning('id')
+
+  return findBy({ id: ids[0] }).first()
 }
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
@@ -27,5 +30,6 @@ const findById = id =>
 module.exports = {
   add,
   find,
-  findBy
+  findBy,
+  findById
 }
