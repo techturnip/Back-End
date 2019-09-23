@@ -24,7 +24,16 @@ router.get('/', (req, res) => {
 //Post a post
 //=================================================|
 router.post('/', (req, res) => {
-    Posts.create()
+    const postInfo = req.body;
+
+    Posts.create(postInfo)
+        .then(post => {
+            if (!postInfo) {
+                res.status(404).json({ message: `Please fill out all information lines.`})
+            } else {
+                res.status(201).json({ message: `Post has been sucessfully posted.`})
+            }
+        })
 })
 // ------------------------------------------------|
 // EXPORT =========================================|

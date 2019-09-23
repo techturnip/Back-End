@@ -5,7 +5,7 @@ const db = require('../data/dbConfig.js')
 //Create a new post
 //==============================|
 function create(post) {
-    return('posts').insert(post)
+    return db('posts').insert(post)
 }
 //------------------------------|
 
@@ -18,12 +18,21 @@ function find() {
 
 //Find post by id
 //==============================|
-function findById() {
+function findById(id) {
     return db('posts')
     .where({ id })
     .first();
 }
 //------------------------------|
+
+//Update post by id
+function update() {
+    return db('posts')
+}
+
+function remove() {
+    return db('posts')
+}
 
 // //Find post by user
 // //==============================|
@@ -37,6 +46,8 @@ function findById() {
 module.exports = {
     create,
     find,
-    findById
-    // findByUser
+    findById,
+    // findByUser,
+    update,
+    remove
 }
