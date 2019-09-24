@@ -10,16 +10,75 @@ This repository contains the source code for the Back End API developed for the 
 
 #### Endpoints
 
-**Auth (implemented):**
+#### Auth (implemented):
+
+**Login:**
 
 - POST Request - `/api/auth/login`
-  -- username & password required for login
-  -- sends back success message, user object and auth token
-- POST Request - `/api/auth/register`
-  -- requires username, password, fname, lname, email
-  -- sends back sucess message, user object and auth token
+  - username & password required for login
+  - sends back success message, user object and auth token
 
-**Users (not implemented yet):**
+Expects a JSON object from client:
+
+```
+{
+  "username": "super_user123"
+  "password": "super_password48"
+}
+```
+
+Successful login should return:
+
+```
+{
+  "message": "Login was successful",
+  "user": {
+    "id": 25
+    "fname": "Example",
+    "lname": "User",
+    "username": "super_user123"
+  }
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNSIsInVzZXJuYW1lIjoic3VwZXJfdXNlcjEyMyJ9.l7W76ELVDr0Y0QrU086wrpj8aT0j6XMcA6-uXKX8fBE"
+}
+```
+
+**Register:**
+
+- POST Request - `/api/auth/register`
+  - requires `fname`, `lname`, `email`, `username`, `password`
+  - sends back sucess message, user object and auth token
+
+Expects a JSON object from client:
+
+```
+{
+  "fname": "Example",
+  "lname": "User",
+  "email": "user@example.com",
+  "username": "super_user123"
+  "password": "super_password48"
+}
+```
+
+Successful registration should return a JSON object w/ web token:
+
+```
+{
+  "message": "Registration was successful",
+  "user": {
+    "id": 25
+    "fname": "Example",
+    "lname": "User",
+    "username": "super_user123"
+  }
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNSIsInVzZXJuYW1lIjoic3VwZXJfdXNlcjEyMyJ9.l7W76ELVDr0Y0QrU086wrpj8aT0j6XMcA6-uXKX8fBE"
+}
+```
+
+#### Users:
+
+- GET Request - `/api/users`
+  - requires a valid webtoken
 
 **Posts (not implemented yet):**
 
@@ -53,6 +112,8 @@ To run the API locally
 git clone [repo]
 cd [repo]
 npm install
+knex migrate:latest
+knex seed:run
 npm run server
 ```
 

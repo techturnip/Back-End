@@ -1,8 +1,8 @@
 // IMPORTS/INITIALIZATION =========================|
 // ================================================|
-const server = require('../api/server.js')
 const Users = require('./user-model.js')
 const db = require('../data/dbConfig.js')
+const knexCleaner = require('knex-cleaner')
 // ------------------------------------------------|
 // TESTING ========================================|
 // ================================================|
@@ -10,9 +10,14 @@ describe('the user model', () => {
   // ==============================================|
   // SETUP FOR TESTING ----------------------------|
   // ==============================================|
+  // setup knex cleaner
+  const options = {
+    mode: 'truncate',
+    restartIdentity: true
+  }
   // reset before running tests -------------------|
-  afterAll(async () => {
-    return await db('users').truncate()
+  beforeAll(async () => {
+    return await knexCleaner.clean(db, options)
   })
   // define testUser ------------------------------|
   const testUser = {
@@ -35,7 +40,7 @@ describe('the user model', () => {
         .first()
 
       // assertions
-      expect(userAdded.id).toBe(1)
+      expect(userAdded.username).toBe('testUser')
     })
   })
   // ==============================================|
@@ -58,7 +63,7 @@ describe('the user model', () => {
       const user = await Users.findBy({ username: testUser.username })
 
       // assertions
-      expect(user.id).toEqual(1)
+      expect(user.username).toBe('testUser')
     })
   })
   // ==============================================|
@@ -69,11 +74,11 @@ describe('the user model', () => {
       const user = await Users.findById(1)
 
       // assertions
-      expect(user.id).toBe(1)
+      expect(user.username).toBe('testUser')
     })
   })
   // clean up -------------------------------------|
   afterAll(async () => {
-    await db('users').truncate()
+    await db('users').del()
   })
 })

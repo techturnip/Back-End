@@ -3,6 +3,7 @@
 const request = require('supertest')
 const server = require('../api/server.js')
 const db = require('../data/dbConfig.js')
+const knexCleaner = require('knex-cleaner')
 // ------------------------------------------------|
 // TESTING ========================================|
 // ================================================|
@@ -10,9 +11,14 @@ describe('the auth router', () => {
   // ==============================================|
   // SETUP FOR TESTING ----------------------------|
   // ==============================================|
+  // setup knex cleaner
+  const options = {
+    mode: 'truncate',
+    restartIdentity: true
+  }
   // reset before running tests -------------------|
-  afterEach(async () => {
-    return await db('users').truncate()
+  beforeEach(async () => {
+    return await knexCleaner.clean(db, options)
   })
   // define testUser ------------------------------|
   const testUser = {

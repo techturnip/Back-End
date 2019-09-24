@@ -40,8 +40,8 @@ router.get('/:id', restricted, (req, res) => {
 // ------------------------------------------------|
 // UPDATE USER ------------------------------------|
 router.put('/:id', restricted, (req, res) => {
-  if(req.decodedToken.sub === Number(req.params.id)){
-    const 
+  if (req.decodedToken.sub === Number(req.params.id)) {
+    // const
   }
 })
 // ------------------------------------------------|

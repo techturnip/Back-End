@@ -14,12 +14,10 @@ module.exports = {
       directory: './data/seeds'
     }
   },
-
   testing: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/test.db3'
-    },
+    client: 'pg',
+    connection:
+      'postgres://tylerturnipseed:WebDev1535@localhost:5432/expat-testing',
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
