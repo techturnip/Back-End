@@ -11,8 +11,8 @@ describe('the auth router', () => {
   // SETUP FOR TESTING ----------------------------|
   // ==============================================|
   // reset before running tests -------------------|
-  beforeEach(async () => {
-    await db('users').truncate()
+  afterEach(async () => {
+    return await db('users').truncate()
   })
   // define testUser ------------------------------|
   const testUser = {

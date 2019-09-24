@@ -10,14 +10,17 @@ const add = async user => {
     .insert(user)
     .returning('id')
 
-  return findBy({ id: ids[0] }).first()
+  return findBy({ id: ids[0] })
 }
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
-const find = () => db('users')
+const findBy = filter =>
+  db('users')
+    .where(filter)
+    .first()
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
-const findBy = filter => db('users').where(filter)
+const findAll = () => db('users')
 // ------------------------------------------------|
 // Sept. 21 - Added -------------------------------|
 const findById = id =>
@@ -29,7 +32,7 @@ const findById = id =>
 // ================================================|
 module.exports = {
   add,
-  find,
   findBy,
+  findAll,
   findById
 }
