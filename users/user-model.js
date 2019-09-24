@@ -24,6 +24,13 @@ const findById = id =>
   db('users')
     .where({ id })
     .first()
+
+// Find
+const findPosts = id => 
+  db('posts as p')
+  .join('users as u', 'u.id', 'p.id')
+  .select('p.id', 'p.user_id', 'p.title', 'p.city', 'p.country', 'p.content', 'p.imageURL')
+
 // ------------------------------------------------|
 // EXPORT =========================================|
 // ================================================|
@@ -31,5 +38,6 @@ module.exports = {
   add,
   find,
   findBy,
-  findById
+  findById,
+  findPosts
 }
