@@ -6,8 +6,11 @@ const db = require('../data/dbConfig.js')
 // ================================================|
 // Sep. 21 - Refactored for modularity ------------|
 const add = async user => {
-  const [id] = await db('users').insert(user)
-  return findById(id)
+  const ids = await db('users')
+    .insert(user)
+    .returning('id')
+
+  return findBy({ id: ids[0] }).first()
 }
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
@@ -21,15 +24,13 @@ const findById = id =>
   db('users')
     .where({ id })
     .first()
-    .then(console.log(`found user with id of ${id}`))
 
 // Find
 const findPosts = id => 
   db('posts as p')
   .join('users as u', 'u.id', 'p.id')
   .select('p.id', 'p.user_id', 'p.title', 'p.city', 'p.country', 'p.content', 'p.imageURL')
-  .then(console.log(`found user posts from user with an id of ${id}`))
-  
+
 // ------------------------------------------------|
 // EXPORT =========================================|
 // ================================================|

@@ -62,20 +62,24 @@ router.put('/:id', restricted, (req, res) => {
     const { id } = req.params;
     const changes = req.body;
 
-    Posts.update(id, changes)
-    //Function to see if post id
-        .then(post => {
-            if(id == null){
-                res.status(404).json({ message: `Invalid ID.`})
-            } else {
-                if (!changes) {
-                    res.status(404).json({ message: `Please fill out all information lines.`})
-                } else {
-                    res.status(201).json({ message: `Post has been updated.`})
-                }  
-            }
-        })
+    console.log(req.decodedToken)
 
+    if(id){
+        if(res.decodedToken.sub === changes.user_id){
+            Posts.update(id, changes)
+            .then(post => {
+                res.status(200).json({post})
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Error updating with specified id.'})
+            })
+        } else {
+            res.status(401).json({ message: "User is not authorized to update"})
+        }
+    } else {
+        res.status(400).json({ message: 'Please insert ID.'}) 
+    }
+    
     //Default update function
         // .then(post => {
         //         if (!changes) {
@@ -92,16 +96,20 @@ router.put('/:id', restricted, (req, res) => {
 
 //Remove post
 //=================================================|
-router.delete('/:id', restricted, (req, res) => {
+router.delete('/:user_id', restricted, (req, res) => {
     const { id } = req.params;
-
-    Posts.remove(id)
-    .then(deleted => {
-        res.status(204).json({ message: `Post has been deleted.`})
-    })
-    .catch(err => {
-        res.status(500).json({ message: 'Error deleting post' })
-    })
+    
+    if(id){
+            Posts.remove(id)
+            .then(deleted => {
+                res.status(200).json({ message: `Post has been deleted.`})
+            })
+            .catch(err => {
+            res.status(500).json({ message: 'Error deleting post' })
+            })
+    } else {
+        res.status(400).json({ message: 'Please insert ID.'}) 
+    } 
 })
 // ------------------------------------------------|
 
