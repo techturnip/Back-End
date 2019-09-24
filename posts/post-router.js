@@ -64,29 +64,29 @@ router.put('/:id', restricted, (req, res) => {
 
     Posts.update(id, changes)
     //Function to see if post id
-        // .then(post => {
-        //     if(id > Posts.find().length){
-        //         if (!changes) {
-        //             res.status(404).json({ message: `Please fill out all information lines.`})
-        //         } else {
-        //             res.status(201).json({ message: `Post has been updated.`})
-        //         }   
-        //     } else {
-        //         res.status(404).json({ message: `there is no post with this id.`})
-        //     }
-        // })
-
-    //Default update function
         .then(post => {
+            if(id == null){
+                res.status(404).json({ message: `Invalid ID.`})
+            } else {
                 if (!changes) {
                     res.status(404).json({ message: `Please fill out all information lines.`})
                 } else {
                     res.status(201).json({ message: `Post has been updated.`})
-                }
-            })
-        .catch(err => {
-            res.status(500).json({ message: 'Error updating post' })
+                }  
+            }
         })
+
+    //Default update function
+        // .then(post => {
+        //         if (!changes) {
+        //             res.status(404).json({ message: `Please fill out all information lines.`})
+        //         } else {
+        //             res.status(201).json({ message: `Post has been updated.`})
+        //         }
+        //     })
+        // .catch(err => {
+        //     res.status(500).json({ message: 'Error updating post' })
+        // })
 })
 // ------------------------------------------------|
 

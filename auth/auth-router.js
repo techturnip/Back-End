@@ -52,42 +52,23 @@ router.post('/register', (req, res) => {
 })
 // ------------------------------------------------|
 router.post('/login', (req, res) => {
-  const { username, password } = req.body
+  const { username, password } = req.body;
 
   if (username && password) {
     Users.findBy({ username })
-      .first()
-      .then(user => {
-        // check for user and verify password
-        if (user && bcrypt.compareSync(password, user.password)) {
-          // generate token for user
-          const token = generateToken(user)
+        .first()
+        .then(user => {
+            if(user && bcrypt.compareSync(password, user.password)){
+                const token = generateToken(user)
 
-          // remove email/password before sending user
-          // info to client
-          delete user.password
-          delete user.email
-
-          // send back user and token
-          res.status(200).json({
-            message: 'Login was successful',
-            user,
-            token
-          })
-        } else {
-          res.status(404).json({
-            message:
-              'User does not exist, please review your username and password'
-          })
-        }
-      })
-      .catch(err => {
-        res.status(500).json({ error: 'Error logging in' })
-      })
-  } else {
-    res.status(400).json({
-      message: 'Please include a username and password'
-    })
+                res.status(200).json({message: 'Login was successful.', token})
+            } else {
+                res.status(401).json({ message: 'Not valid username or password'})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'Error logging in' });
+        })
   }
 })
 // ------------------------------------------------|

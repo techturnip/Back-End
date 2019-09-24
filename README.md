@@ -40,6 +40,8 @@ This repository contains the source code for the Back End API developed for the 
 - [Express](https://expressjs.com/)
 - [Jest](https://jestjs.io/)
 - [Knex](http://knexjs.org/)
+- [SQLite (development db)](https://www.sqlite.org/index.html)
+- [PostgreSQL (production db)](https://www.postgresql.org/)
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js#readme)
 - [jsonwebtokens](https://github.com/auth0/node-jsonwebtoken#readme)
 
@@ -50,8 +52,8 @@ To run the API locally
 ```
 git clone [repo]
 cd [repo]
-yarn
-yarn server
+npm install
+npm run server
 ```
 
 ## Credits

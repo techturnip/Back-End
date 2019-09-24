@@ -15,7 +15,6 @@ const find = () => db('users')
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
 const findBy = filter => db('users').where(filter)
-  .then(console.log(`found user from ${filter}`))
 // ------------------------------------------------|
 // Sept. 21 - Added -------------------------------|
 const findById = id =>
