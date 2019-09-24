@@ -9,6 +9,7 @@ const Users = require('../users/user-model.js')
 // ================================================|
 // base url '/api/auth' ---------------------------|
 // ------------------------------------------------|
+// REGISTER ENDPOINT ------------------------------|
 router.post('/register', (req, res) => {
   // store user in a variable
   let user = req.body
@@ -51,6 +52,7 @@ router.post('/register', (req, res) => {
   }
 })
 // ------------------------------------------------|
+// LOGIN ENDPOINT ---------------------------------|
 router.post('/login', (req, res) => {
   const { username, password } = req.body
 
