@@ -26,7 +26,6 @@ router.get('/', restricted, (req, res) => {
 // GET LIST OF USER'S POSTS -----------------------|
 router.get('/:id/posts', restricted, async (req, res) => {
   const { id } = req.params
-  console.log(id)
 
   try {
     const userPosts = await Users.findUserPosts(id)
@@ -105,7 +104,9 @@ router.delete('/:id', restricted, async (req, res) => {
         deleted: Boolean(bool)
       })
     } catch (err) {
-      message: 'There was an error deleting the user'
+      res.status(500).json({
+        message: 'There was an error deleting the user'
+      })
     }
   } else {
     res.status(401).json({
