@@ -129,7 +129,7 @@ Successful request should return a single user:
 
 **Get List of User's Posts**
 
-- GET Request - `/api/users/:id/post`
+- GET Request - `/api/users/:id/posts`
   - requires a valid webtoken
 
 Successful request should return a list of user's posts:
