@@ -34,6 +34,24 @@ const findById = id =>
     .where({ id })
     .first()
 // ------------------------------------------------|
+const findUserPosts = id => {
+  return db('users as u')
+    .join('posts as p', 'p.user_id', 'u.id')
+    .where('p.user_id', id)
+    .select(
+      'u.fname',
+      'u.username',
+      'p.user_id',
+      'p.title',
+      'p.city',
+      'p.country',
+      'p.content',
+      'p.imageURL',
+      'p.created_at',
+      'p.updated_at'
+    )
+}
+// ------------------------------------------------|
 const remove = id =>
   db('users')
     .where({ id })
@@ -46,5 +64,6 @@ module.exports = {
   remove,
   findBy,
   findAll,
-  findById
+  findById,
+  findUserPosts
 }
