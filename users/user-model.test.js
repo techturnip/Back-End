@@ -19,6 +19,10 @@ describe('the user model', () => {
   beforeAll(async () => {
     return await knexCleaner.clean(db, options)
   })
+  // clean up -------------------------------------|
+  afterAll(async () => {
+    await db('users').truncate()
+  })
   // define testUser ------------------------------|
   const testUser = {
     fname: 'Test',
@@ -116,9 +120,5 @@ describe('the user model', () => {
 
       expect(removeUser).toBe(1)
     })
-  })
-  // clean up -------------------------------------|
-  afterAll(async () => {
-    await db('users').del()
   })
 })

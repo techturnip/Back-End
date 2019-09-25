@@ -20,6 +20,9 @@ describe('the user router', () => {
   beforeEach(async () => {
     return await knexCleaner.clean(db, options)
   })
+  afterEach(async () => {
+    return await knexCleaner.clean(db, options)
+  })
   // define testUser ------------------------------|
   const testUser = {
     fname: 'Test',
@@ -49,7 +52,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
       // attempt to get users with valid taken
@@ -64,7 +66,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
 
@@ -99,7 +100,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
 
@@ -114,10 +114,10 @@ describe('the user router', () => {
       const res = await request(server)
         .post('/api/auth/register')
         .send(testUser)
-        .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
+
+      console.log(token)
 
       // attempt to get user with a valid user id
       return await request(server)
@@ -131,7 +131,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
 
@@ -170,7 +169,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token, user } = res.body
 
@@ -191,7 +189,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token, user } = res.body
 
@@ -232,7 +229,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
 
@@ -248,7 +244,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
 
@@ -280,7 +275,6 @@ describe('the user router', () => {
         .post('/api/auth/register')
         .send(testUser)
         .set('Accept', 'application/json')
-        .expect(201)
 
       const { token } = res.body
 

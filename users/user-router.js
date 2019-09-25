@@ -39,18 +39,21 @@ router.get('/:id/posts', restricted, async (req, res) => {
 })
 // ------------------------------------------------|
 // GET USER BY ID ---------------------------------|
-router.get('/:id', restricted, (req, res) => {
-  Users.findBy({ id: req.params.id })
-    .then(user => {
-      delete user.password
-      delete user.email
-      res.status(200).json(user)
+router.get('/:id', restricted, async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const user = await Users.findBy({ id })
+
+    delete user.password
+    delete user.email
+
+    res.status(200).json(user)
+  } catch (err) {
+    res.status(404).json({
+      message: 'The specified user could not be found'
     })
-    .catch(err => {
-      res.status(404).json({
-        message: 'The specified user could not be found'
-      })
-    })
+  }
 })
 // ------------------------------------------------|
 // UPDATE USER ------------------------------------|
