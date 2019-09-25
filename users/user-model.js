@@ -4,7 +4,6 @@ const db = require('../data/dbConfig.js')
 // ------------------------------------------------|
 // DEFINE DB HELPERS ==============================|
 // ================================================|
-// Sep. 21 - Refactored for modularity ------------|
 const add = async user => {
   const ids = await db('users')
     .insert(user)
@@ -23,26 +22,28 @@ const update = async (id, changes) => {
     .first()
 }
 // ------------------------------------------------|
-// Sep. 21 - Refactored for modularity ------------|
 const findBy = filter =>
   db('users')
     .where(filter)
     .first()
 // ------------------------------------------------|
-// Sep. 21 - Refactored for modularity ------------|
 const findAll = () => db('users')
 // ------------------------------------------------|
-// Sept. 21 - Added -------------------------------|
 const findById = id =>
   db('users')
     .where({ id })
     .first()
 // ------------------------------------------------|
+const remove = id =>
+  db('users')
+    .where({ id })
+    .del()
 // EXPORT =========================================|
 // ================================================|
 module.exports = {
   add,
   update,
+  remove,
   findBy,
   findAll,
   findById

@@ -81,7 +81,7 @@ router.put('/:id', restricted, async (req, res) => {
 
   // check the id stored in token vs the user id from
   // req.params
-  if (req.decodedToken.sub === Number(req.params.id)) {
+  if (req.decodedToken.sub === Number(id)) {
     // pull changes from req.body
     const changes = req.body
 
@@ -105,6 +105,31 @@ router.put('/:id', restricted, async (req, res) => {
   } else {
     res.status(401).json({
       message: 'You are not authorized to update this user'
+    })
+  }
+})
+// ------------------------------------------------|
+// DELETE USER ------------------------------------|
+router.delete('/:id', restricted, async (req, res) => {
+  // pull id from params
+  const { id } = req.params
+
+  // check the id stored in token vs the user id from
+  // req.params
+  if (req.decodedToken.sub === Number(id)) {
+    try {
+      const bool = await Users.remove(id)
+
+      res.status(200).json({
+        message: 'User successfully deleted',
+        deleted: Boolean(bool)
+      })
+    } catch (err) {
+      message: 'There was an error deleting the user'
+    }
+  } else {
+    res.status(401).json({
+      message: 'You are not authorized to delete this user'
     })
   }
 })

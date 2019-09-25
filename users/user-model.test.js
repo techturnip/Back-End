@@ -103,6 +103,20 @@ describe('the user model', () => {
       expect(updatedUser.fname).toBe('Updated')
     })
   })
+  // ==============================================|
+  // test remove(id) db helper --------------------|
+  describe('remove user helper method', () => {
+    it('should remove a user from db', async () => {
+      // get user from db
+      const userToRemove = await db('users')
+        .where({ username: 'updatedUser' })
+        .first()
+
+      const removeUser = await Users.remove(1)
+
+      expect(removeUser).toBe(1)
+    })
+  })
   // clean up -------------------------------------|
   afterAll(async () => {
     await db('users').del()
