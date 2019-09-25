@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
           .status(401)
           .json({ message: 'please login to see this information.' })
       } else {
-        res.decodedToken = decodedToken
+        req.decodedToken = decodedToken
         next()
       }
     })

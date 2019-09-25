@@ -49,11 +49,9 @@ router.get('/:id/posts', restricted, (req, res) => {
       if (users) {
         res.status(200).json(users)
       } else {
-        res
-          .status(404)
-          .json({
-            message: `Could not find post from the user with an id of ${id}.`
-          })
+        res.status(404).json({
+          message: `Could not find post from the user with an id of ${id}.`
+        })
       }
     })
     .catch(err => {
@@ -77,9 +75,37 @@ router.get('/:id', restricted, (req, res) => {
 })
 // ------------------------------------------------|
 // UPDATE USER ------------------------------------|
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', restricted, async (req, res) => {
+  // pull id from params
+  const { id } = req.params
+
+  // check the id stored in token vs the user id from
+  // req.params
   if (req.decodedToken.sub === Number(req.params.id)) {
-    // const
+    // pull changes from req.body
+    const changes = req.body
+
+    try {
+      // update the user
+      const updatedUser = await Users.update(id, changes)
+
+      delete updatedUser.password
+      delete updatedUser.email
+
+      res.status(200).json({
+        message: 'User successfully updated',
+        user: updatedUser
+      })
+    } catch (err) {
+      console.log(err)
+      res.status(500).json({
+        message: 'There was an error updating the user'
+      })
+    }
+  } else {
+    res.status(401).json({
+      message: 'You are not authorized to update this user'
+    })
   }
 })
 // ------------------------------------------------|

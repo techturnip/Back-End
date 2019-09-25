@@ -14,12 +14,13 @@ const add = async user => {
 }
 // ------------------------------------------------|
 const update = async (id, changes) => {
-  const ids = await db('users')
+  await db('users')
     .where({ id })
     .update(changes)
-    .returning('id')
 
-  return findBy({ id: ids[0] })
+  return await db('users')
+    .where({ id })
+    .first()
 }
 // ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
