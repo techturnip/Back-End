@@ -45,7 +45,7 @@ describe('the user model', () => {
   })
   // ==============================================|
   // test find() user helper ----------------------|
-  describe('find users method', () => {
+  describe('find all users method', () => {
     it('should return a list of users from the database', async () => {
       // use find method to store array of users
       const users = await Users.findAll()
@@ -75,6 +75,32 @@ describe('the user model', () => {
 
       // assertions
       expect(user.username).toBe('testUser')
+    })
+  })
+  // ==============================================|
+  // test update(id, changes) db helper -----------|
+  describe('update user helper method', () => {
+    it('should update a user', async () => {
+      // get user from db
+      const userToUpdate = await db('users')
+        .where({ username: testUser.username })
+        .first()
+
+      // pull id and username to update out
+      const id = userToUpdate.id
+
+      // define changes
+      const changes = {
+        ...userToUpdate,
+        username: 'updatedUser',
+        fname: 'Updated'
+      }
+
+      // use update() to update a user
+      const updatedUser = await Users.update(id, changes)
+
+      expect(updatedUser.username).toBe('updatedUser')
+      expect(updatedUser.fname).toBe('Updated')
     })
   })
   // clean up -------------------------------------|

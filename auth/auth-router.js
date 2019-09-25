@@ -43,7 +43,7 @@ router.post('/register', (req, res) => {
         })
       })
       .catch(err => {
-        res.status(500).json({ error: 'Error registering' })
+        res.status(500).json({ message: 'Error registering' })
       })
   } else {
     res.status(400).json({
@@ -77,15 +77,17 @@ router.post('/login', (req, res) => {
             token
           })
         } else {
-          res.status(404).json({
+          res.status(401).json({
             message:
-              'User does not exist, please review your username and password'
+              'Error logging in, please review your username and password'
           })
         }
       })
       .catch(err => {
         console.log(err)
-        res.status(500).json({ error: 'Error logging in' })
+        res
+          .status(500)
+          .json({ message: 'Error retrieving user from the database' })
       })
   } else {
     res.status(400).json({

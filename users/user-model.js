@@ -13,6 +13,15 @@ const add = async user => {
   return findBy({ id: ids[0] })
 }
 // ------------------------------------------------|
+const update = async (id, changes) => {
+  const ids = await db('users')
+    .where({ id })
+    .update(changes)
+    .returning('id')
+
+  return findBy({ id: ids[0] })
+}
+// ------------------------------------------------|
 // Sep. 21 - Refactored for modularity ------------|
 const findBy = filter =>
   db('users')
@@ -27,28 +36,13 @@ const findById = id =>
   db('users')
     .where({ id })
     .first()
-
-// Find
-const findPosts = id =>
-  db('posts as p')
-    .join('users as u', 'u.id', 'p.id')
-    .select(
-      'p.id',
-      'p.user_id',
-      'p.title',
-      'p.city',
-      'p.country',
-      'p.content',
-      'p.imageURL'
-    )
-
 // ------------------------------------------------|
 // EXPORT =========================================|
 // ================================================|
 module.exports = {
   add,
+  update,
   findBy,
   findAll,
-  findById,
-  findPosts
+  findById
 }

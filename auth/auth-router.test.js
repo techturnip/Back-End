@@ -73,7 +73,7 @@ describe('the auth router', () => {
         .expect(400)
     })
     // --------------------------------------------|
-    it('should respond with a 404 with incorrect username/password', async () => {
+    it('should respond with a 401 with incorrect username/password', async () => {
       // add test user
       await request(server)
         .post('/api/auth/register')
@@ -87,10 +87,10 @@ describe('the auth router', () => {
           username: 'incorrectUserName',
           password: 'incorrectUserPass'
         })
-        .expect(404)
+        .expect(401)
 
       expect(res.body.message).toBe(
-        'User does not exist, please review your username and password'
+        'Error logging in, please review your username and password'
       )
     })
     // --------------------------------------------|
