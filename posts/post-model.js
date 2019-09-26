@@ -29,11 +29,6 @@ const remove = id =>
   db('posts')
     .where({ id })
     .del()
-function remove(id) {
-  return db('posts')
-    .where({ id })
-    .del()
-}
 // EXPORT =========================================|
 // ================================================|
 module.exports = {
