@@ -7,14 +7,16 @@ const db = require('../data/dbConfig.js')
 const add = async post => {
   const ids = await db('posts')
     .insert(post)
-    .returning('*')
+    .returning('id')
 
-  return findBy({ id: ids[0] })
+  return db('posts')
+    .where({ id: ids[0] })
+    .first()
 }
 // ------------------------------------------------|
 const find = () => db('posts')
 // ------------------------------------------------|
-const findBy = filter => db('posts').where({ filter })
+const findBy = filter => db('posts').where(filter)
 // ------------------------------------------------|
 const update = async (id, changes) => {
   await db('posts')
@@ -22,7 +24,7 @@ const update = async (id, changes) => {
     .update(changes)
     .returning('*')
 
-  return findBy({ id })
+  return findBy({ id }).first()
 }
 // ------------------------------------------------|
 const remove = id =>
@@ -35,7 +37,6 @@ module.exports = {
   add,
   find,
   findBy,
-  findById,
   update,
   remove
 }

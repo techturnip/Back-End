@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
   const { id } = req.params
 
   try {
-    const post = await Posts.findById(id)
+    const post = await Posts.findBy({ id }).first()
 
     if (post) {
       res.status(200).json(post)
@@ -56,7 +56,7 @@ router.post('/', restricted, async (req, res) => {
 
   if (req.decodedToken.sub === Number(user_id)) {
     try {
-      const newPost = await Posts.create(post)
+      const newPost = await Posts.add(post)
 
       res.status(201).json({
         message: 'Post successfully created',
@@ -112,7 +112,7 @@ router.put('/:id', restricted, async (req, res) => {
 router.delete('/:id/user/:user_id', restricted, async (req, res) => {
   const { id, user_id } = req.params
 
-  if (id) {
+  if (id && user_id) {
     if (req.decodedToken.sub === Number(user_id)) {
       try {
         const removed = await Posts.remove(id)

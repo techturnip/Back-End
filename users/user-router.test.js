@@ -117,8 +117,6 @@ describe('the user router', () => {
 
       const { token } = res.body
 
-      console.log(token)
-
       // attempt to get user with a valid user id
       return await request(server)
         .get('/api/users/1')

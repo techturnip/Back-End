@@ -21,7 +21,7 @@ describe('the user model', () => {
   })
   // clean up -------------------------------------|
   afterAll(async () => {
-    await db('users').truncate()
+    return await db('users').truncate()
   })
   // define testUser ------------------------------|
   const testUser = {
