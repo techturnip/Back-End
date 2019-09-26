@@ -464,7 +464,7 @@ Successful DELETE request should return a JSON object
 - [Jest](https://jestjs.io/)
 - [Knex](http://knexjs.org/)
 - [SQLite (development db)](https://www.sqlite.org/index.html)
-- [PostgreSQL (production db)](https://www.postgresql.org/)
+- [PostgreSQL (production & testing db)](https://www.postgresql.org/)
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js#readme)
 - [jsonwebtokens](https://github.com/auth0/node-jsonwebtoken#readme)
 
@@ -481,18 +481,45 @@ knex seed:run
 npm run server
 ```
 
+# Testing
+
+To run test suites you will need a local implementation of PostgreSQL on your machine, create a testing database, and connect to it within the testing environment configuration inside of knexfile.js.
+
+```
+// follow the instructions above to install the project
+
+// setup testing database
+knex migrate:latest --env testing
+
+// run the test suites
+npm run test
+```
+
 ## Credits
 
 ### Team
 
-Organization - [Expat Journal Project](https://github.com/Build-Week-Expat-Journal-Sept-19)
+GitHub Organization - [Expat Journal Project](https://github.com/Build-Week-Expat-Journal-Sept-19)
+
+#### Marketing Page Team
+
+- [**Natacha David**](https://github.com/natacha96510) - UI Developer
+  - [Natacha's Marketing Repo](https://github.com/Build-Week-Expat-Journal-Sept-19/Marketing-Page-Natacha)
+- [**Timothy Grey**](https://github.com/timrcoder) - UI Developer
+  - [Tim's Marketing Repo](https://github.com/Build-Week-Expat-Journal-Sept-19/Marketing-Page-Tim)
 
 #### Front End Team
 
+[Front End Repo](https://github.com/Build-Week-Expat-Journal-Sept-19/Front-End)
+[Front End Deployment](https://expat-journal-build-week.netlify.com/)
+
+- [**Stephen Tanksley**](https://github.com/StephenTanksley) - Front End Architect
+- [**Tim Mitzen**](https://github.com/TimMitzen) - Front End Architect
+
 #### Back End Team
 
-- [**Tyler Turnipseed** - Back End Architect](https://github.com/techturnip)
-- [**Sir Williams** - Back End Architect](https://github.com/Sir-Williams)
+- [**Tyler Turnipseed**](https://github.com/techturnip) - Back End Architect
+- [**Sir Williams**](https://github.com/Sir-Williams) - Back End Architect
 
 ---
 
