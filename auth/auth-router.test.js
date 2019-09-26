@@ -20,6 +20,9 @@ describe('the auth router', () => {
   beforeEach(async () => {
     return await knexCleaner.clean(db, options)
   })
+  afterEach(async () => {
+    return await knexCleaner.clean(db, options)
+  })
   // define testUser ------------------------------|
   const testUser = {
     fname: 'Test',

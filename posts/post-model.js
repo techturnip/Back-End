@@ -1,52 +1,42 @@
-//Imports
-//==============================|
+// IMPORTS/INITIALIZATION =========================|
+// ================================================|
 const db = require('../data/dbConfig.js')
+// ------------------------------------------------|
+// DEFINE DB HELPERS ==============================|
+// ================================================|
+const add = async post => {
+  const ids = await db('posts')
+    .insert(post)
+    .returning('id')
 
-//Create a new post
-//==============================|
-function create(post) {
-    return db('posts').insert(post)
+  return db('posts')
+    .where({ id: ids[0] })
+    .first()
 }
-//------------------------------|
-
-//Find all post
-//==============================|
-function find() {
-    return db('posts')
-}
-//------------------------------|
-
-//Find post by id
-//==============================|
-function findById(id) {
-    return db('posts')
+// ------------------------------------------------|
+const find = () => db('posts')
+// ------------------------------------------------|
+const findBy = filter => db('posts').where(filter)
+// ------------------------------------------------|
+const update = async (id, changes) => {
+  await db('posts')
     .where({ id })
-    .first();
-}
-//------------------------------|
+    .update(changes)
+    .returning('*')
 
-//Update post by id
-//==============================|
-function update(id, changes) {
-    return db('posts')
-        .where({ id })
-        .update(changes)
+  return findBy({ id }).first()
 }
-//------------------------------|
-
-//Remove post
-//==============================|
-function remove(id) {
-    return db('posts')
-        .where({ id })
-        .del()
-}
-//------------------------------|
-
+// ------------------------------------------------|
+const remove = id =>
+  db('posts')
+    .where({ id })
+    .del()
+// EXPORT =========================================|
+// ================================================|
 module.exports = {
-    create,
-    find,
-    findById,
-    update,
-    remove
+  add,
+  find,
+  findBy,
+  update,
+  remove
 }
