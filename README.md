@@ -8,11 +8,12 @@ This repository contains the source code for the Back End API developed for the 
 
 [https://be-expat-journal.herokuapp.com/](https://be-expat-journal.herokuapp.com/)
 
-#### Endpoints
+### Endpoints
 
-#### Auth (implemented):
+### Auth (implemented):
 
-**Login:**
+<details>
+<summary>Login</summary>
 
 - POST Request - `/api/auth/login`
   - username & password required for login
@@ -42,7 +43,10 @@ Successful login should return:
 }
 ```
 
-**Register:**
+</details>
+<br>
+<details>
+<summary>Register</summary>
 
 - POST Request - `/api/auth/register`
   - requires `fname`, `lname`, `email`, `username`, `password`
@@ -75,13 +79,16 @@ Successful registration should return a JSON object w/ web token:
 }
 ```
 
-#### Users (protected endpoints):
+</details>
+
+### Users (protected endpoints):
 
 **All user endpoints require a valid token**
 
 Where `/:id` would be a user's id
 
-**Get List of Users:**
+<details>
+<summary>Get List of Users</summary>
 
 - GET Request - `/api/users`
   - requires a valid webtoken
@@ -111,7 +118,10 @@ Successful request should return a list of users:
 ]
 ```
 
-**Get User by ID:**
+</details>
+<br>
+<details>
+<summary>Get User by ID</summary>
 
 - GET Request - `/api/users/:id`
   - requires a valid webtoken
@@ -127,7 +137,10 @@ Successful request should return a single user:
 }
 ```
 
-**Get List of User's Posts**
+</details>
+<br>
+<details>
+<summary>Get List of User's Posts</summary>
 
 - GET Request - `/api/users/:id/posts`
   - requires a valid webtoken
@@ -163,7 +176,10 @@ Successful request should return a list of user's posts:
 ]
 ```
 
-**Update User:**
+</details>
+<br>
+<details>
+<summary>Update User</summary>
 
 - PUT Request - `/api/users/:id`
   - requires a valid webtoken
@@ -204,7 +220,10 @@ Successful Update should return a JSON Object:
 }
 ```
 
-**Delete User:**
+</details>
+<br>
+<details>
+<summary>Delete User</summary>
 
 - DELETE Request - `/api/users`
   - requires a valid webtoken
@@ -219,7 +238,213 @@ Successful Delete should return a JSON Object:
 }
 ```
 
-**Posts (not implemented yet):**
+</details>
+
+### Posts:
+
+Where `/:id` would be a post id and `/:user_id` would be a user id
+
+<details>
+<summary>Get List of All Posts</summary>
+
+- GET Request - `/api/posts/`
+
+Successful GET request should return a list of all posts
+
+```
+[
+  {
+    "id": 1,
+    "date": 1568383863360,
+    "user_id": 4,
+    "title": "repellat et odit",
+    "city": "Hartmannland",
+    "country": "Kuwait",
+    "content": "Quis maxime ea debitis et adipisci et amet qui. Optio et quas cum. Rem et dolor maiores aut tempora esse rem voluptas.",
+    "imageURL": "https://picsum.photos/id/0/300/300",
+    "created_at": "2019-09-26 01:05:46",
+    "updated_at": "2019-09-26 01:05:46"
+  },
+  {
+    "id": 2,
+    "date": 1556530555012,
+    "user_id": 6,
+    "title": "et voluptas aut",
+    "city": "West Muhammad",
+    "country": "Saint Martin",
+    "content": "Rerum laboriosam voluptatum inventore ut in autem aut. Esse similique voluptatum blanditiis sit nihil excepturi rerum reiciendis. Vel commodi ab unde ratione eligendi deleniti. Est excepturi nihil doloremque in numquam vel ut nulla. Fugit aut repellat.",
+    "imageURL": "https://picsum.photos/id/1/300/300",
+    "created_at": "2019-09-26 01:05:46",
+    "updated_at": "2019-09-26 01:05:46"
+  },
+  {
+    "id": 3,
+    "date": 1551697867833,
+    "user_id": 18,
+    "title": "repellat et non",
+    "city": "South Keelyfurt",
+    "country": "Lesotho",
+    "content": "Unde doloremque impedit voluptatem quisquam dicta. Est quia corrupti delectus quidem magni aspernatur. Nobis deleniti aut voluptatibus non modi nam.",
+    "imageURL": "https://picsum.photos/id/10/300/300",
+    "created_at": "2019-09-26 01:05:46",
+    "updated_at": "2019-09-26 01:05:46"
+  }
+]
+```
+
+</details>
+<br>
+<details>
+<summary>Get a post by id</summary>
+
+- GET Request - `/api/posts/:id`
+  - requires a post id passed into the endpoint url
+
+Successful GET request should return a single post
+
+```
+// example response from valid GET request to '/api/posts/45'
+{
+  "id": 45,
+  "date": 1550449805777,
+  "user_id": 11,
+  "title": "illo explicabo voluptatem",
+  "city": "New Penelopemouth",
+  "country": "Mayotte",
+  "content": "Aut omnis asperiores hic quae illum laborum quia dignissimos quaerat. Omnis quia eligendi. Iure porro consequuntur illo omnis at ut illum. Voluptas dolores ut saepe maxime porro atque doloremque. Id velit non error.",
+  "imageURL": "https://picsum.photos/id/1040/300/300",
+  "created_at": "2019-09-26 01:05:46",
+  "updated_at": "2019-09-26 01:05:46"
+}
+```
+
+</details>
+<br>
+<details>
+<summary>Create a post (protected)</summary>
+
+- PUT Request - `/api/posts/`
+  - requires valid web token
+  - id stored in token must match the user_id from the sent post object
+  - following fields are required: `user_id`, `title`, `content`
+
+Example post object sent to api endpoint
+
+```
+{
+	"title": "Test Post",
+	"date": null,
+	"city": "Avon",
+	"country": "United States",
+	"content": "Test Content",
+	"imageURL": "http://picture.com",
+	"user_id": 26
+}
+```
+
+Successful POST request should return a JSON object with a success "message" and "post" that contains the newly created post
+
+```
+{
+  "message": "Post successfully created",
+  "post": {
+    "id": 55,
+    "date": null,
+    "user_id": 26,
+    "title": "Test Post",
+    "city": "Avon",
+    "country": "United States",
+    "content": "Test Content",
+    "imageURL": "http://picture.com",
+    "created_at": "2019-09-26 01:20:50",
+    "updated_at": "2019-09-26 01:20:50"
+  }
+}
+```
+
+</details>
+<br>
+<details>
+<summary>Update a user's post (protected)</summary>
+
+- PUT Request - `/api/posts/:id`
+  - requires a valid webtoken
+  - requires a `user_id` in the changes object for validation purposes
+  - id stored in token must match the user_id from the sent post changes object
+  - requires a changes object containing the changes you wish to make
+
+Example post object to be changed
+
+```
+{
+  "id": 55,
+  "date": null,
+  "user_id": 26,
+  "title": "Test Post",
+  "city": "Avon",
+  "country": "United States",
+  "content": "Test Content",
+  "imageURL": "http://picture.com",
+  "created_at": "2019-09-26 01:20:50",
+  "updated_at": "2019-09-26 01:20:50"
+}
+```
+
+Example Changes Object:
+
+```
+{
+	"title": "Updated Test Post",
+	"date": null,
+	"city": "Plainfield",
+	"country": "United States",
+	"content": "Updated Test Content",
+	"user_id": 26
+}
+```
+
+Successful PUT request should return a JSON object with a success "message" and "post" that contains the newly updated post
+
+```
+// example response from valid PUT request to '/api/posts/55'
+{
+  "message": "Post successfully updated",
+  "post": {
+    "id": 55,
+    "date": null,
+    "user_id": 26,
+    "title": "Updated Test Post",
+    "city": "Plainfield",
+    "country": "United States",
+    "content": "Updated Test Content",
+    "imageURL": "http://picture.com",
+    "created_at": "2019-09-26 01:20:50",
+    "updated_at": "2019-09-26 01:20:50"
+  }
+}
+```
+
+</details>
+<br>
+<details>
+<summary>Remove a user's post (protected)</summary>
+
+- DELETE Request - `/api/posts/:id/user/:user_id`
+  - requires a valid webtoken
+  - requires a post `id` and `user_id` in the endpoint url
+  - id stored in token must match the user_id from the url parameter
+
+Successful DELETE request should return a JSON object
+
+```
+// example response from valid DELETE request to '/api/posts/55/user/26'
+{
+  "message": "Post was successfully deleted",
+  "deleted": true
+}
+```
+
+</details>
 
 ---
 

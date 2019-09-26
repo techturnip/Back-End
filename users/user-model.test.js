@@ -33,7 +33,7 @@ describe('the user model', () => {
   }
   // ==============================================|
   // test add() user helper -----------------------|
-  describe('add user method', () => {
+  describe('the add user method', () => {
     it('should add a user to the database', async () => {
       // use add method to add user to db
       await Users.add(testUser)
@@ -49,7 +49,7 @@ describe('the user model', () => {
   })
   // ==============================================|
   // test find() user helper ----------------------|
-  describe('find all users method', () => {
+  describe('the find all users method', () => {
     it('should return a list of users from the database', async () => {
       // use find method to store array of users
       const users = await Users.findAll()
@@ -61,7 +61,7 @@ describe('the user model', () => {
   })
   // ==============================================|
   // test findBy(filter) user helper --------------|
-  describe('findBy filter method', () => {
+  describe('the findBy filter method', () => {
     it('should return a user by using a filter', async () => {
       // use findBy() to find the user
       const user = await Users.findBy({ username: testUser.username })
@@ -72,7 +72,7 @@ describe('the user model', () => {
   })
   // ==============================================|
   // test findById(id) user helper ----------------|
-  describe('findById helper method', () => {
+  describe('the findById helper method', () => {
     it('should return a user by id', async () => {
       // use findById() to find the user
       const user = await Users.findById(1)
@@ -83,7 +83,7 @@ describe('the user model', () => {
   })
   // ==============================================|
   // test update(id, changes) db helper -----------|
-  describe('update user helper method', () => {
+  describe('the update user helper method', () => {
     it('should update a user', async () => {
       // get user from db
       const userToUpdate = await db('users')
@@ -109,7 +109,7 @@ describe('the user model', () => {
   })
   // ==============================================|
   // test remove(id) db helper --------------------|
-  describe('remove user helper method', () => {
+  describe('the remove user helper method', () => {
     it('should remove a user from db', async () => {
       // get user from db
       const userToRemove = await db('users')
