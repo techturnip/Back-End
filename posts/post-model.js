@@ -1,58 +1,45 @@
 // IMPORTS/INITIALIZATION =========================|
 // ================================================|
 const db = require('../data/dbConfig.js')
-
-//Create a new post
-//==============================|
-async function create(post) {
+// ------------------------------------------------|
+// DEFINE DB HELPERS ==============================|
+// ================================================|
+const add = async post => {
   const ids = await db('posts')
     .insert(post)
     .returning('*')
 
-  return findById(ids[0])
+  return findBy({ id: ids[0] })
 }
-//------------------------------|
-
-//Find all post
-//==============================|
-function find() {
-  return db('posts')
-}
-//------------------------------|
-
-//Find post by id
-//==============================|
-function findById(id) {
-  return db('posts')
-    .where({ id })
-    .first()
-}
-//------------------------------|
-
-//Update post by id
-//==============================|
-async function update(id, changes) {
+// ------------------------------------------------|
+const find = () => db('posts')
+// ------------------------------------------------|
+const findBy = filter => db('posts').where({ filter })
+// ------------------------------------------------|
+const update = async (id, changes) => {
   await db('posts')
     .where({ id })
     .update(changes)
     .returning('*')
 
-  return findById(id)
+  return findBy({ id })
 }
-//------------------------------|
-
-//Remove post
-//==============================|
+// ------------------------------------------------|
+const remove = id =>
+  db('posts')
+    .where({ id })
+    .del()
 function remove(id) {
   return db('posts')
     .where({ id })
     .del()
 }
-//------------------------------|
-
+// EXPORT =========================================|
+// ================================================|
 module.exports = {
-  create,
+  add,
   find,
+  findBy,
   findById,
   update,
   remove
