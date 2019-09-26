@@ -11,106 +11,128 @@ const restricted = require('../auth/restricted-middleware.js')
 
 //Get all posts
 //=================================================|
-router.get('/', (req, res) => {
-  Posts.find()
-    .then(posts => {
-      res.status(200).json(posts)
+router.get('/', async (req, res) => {
+  try {
+    const posts = await Posts.find()
+
+    res.status(200).json(posts)
+  } catch (err) {
+    res.status(500).json({
+      message: 'Error getting posts'
     })
-    .catch(err => {
-      res.status(500).json({ message: 'Error getting posts' })
-    })
+  }
 })
 // ------------------------------------------------|
 
 //Get post by id
 //=================================================|
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params
 
-  Posts.findById(id)
-    .then(posts => {
-      res.status(200).json(posts)
+  try {
+    const post = await Posts.findById(id)
+
+    if (post) {
+      res.status(200).json(post)
+    } else {
+      res.status(404).json({
+        message: 'Could not find the specified post'
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: 'Error getting specified post'
     })
-    .catch(err => {
-      res.status(500).json({ message: 'Error getting posts' })
-    })
+  }
 })
 // ------------------------------------------------|
 
 //Post a post
 //=================================================|
-router.post('/', (req, res) => {
-  const postInfo = req.body
+router.post('/', restricted, async (req, res) => {
+  const post = req.body
 
-  Posts.create(postInfo)
-    .then(post => {
-      if (!postInfo) {
-        res
-          .status(404)
-          .json({ message: `Please fill out all information lines.` })
-      } else {
-        res.status(201).json({ message: `Post has been sucessfully posted.` })
-      }
+  const { user_id } = post
+
+  if (req.decodedToken.sub === Number(user_id)) {
+    try {
+      const newPost = await Posts.create(post)
+
+      res.status(201).json({
+        message: 'Post successfully created',
+        post: newPost
+      })
+    } catch (err) {
+      res.status(500).json({
+        message: 'Error creating new post'
+      })
+    }
+  } else {
+    res.status(401).json({
+      message: 'Not authorized to make a post for this user'
     })
-    .catch(err => {
-      res.status(500).json({ message: 'Error creating posts' })
-    })
+  }
 })
 // ------------------------------------------------|
 
 //Update post
 //=================================================|
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', restricted, async (req, res) => {
   const { id } = req.params
   const changes = req.body
-
-  console.log(req.decodedToken)
+  const { user_id } = changes
 
   if (id) {
-    if (req.decodedToken.sub === changes.user_id) {
-      Posts.update(id, changes)
-        .then(post => {
-          res.status(200).json({ post })
+    if (req.decodedToken.sub === Number(user_id)) {
+      try {
+        const updatedPost = await Posts.update(id, changes)
+
+        res.status(200).json({
+          message: 'Post successfully updated',
+          post: updatedPost
         })
-        .catch(err => {
-          res.status(500).json({ error: 'Error updating with specified id.' })
+      } catch (err) {
+        res.status(500).json({
+          message: 'Error updating this post'
         })
+      }
     } else {
-      res.status(401).json({ message: 'User is not authorized to update' })
+      res
+        .status(401)
+        .json({ message: 'User is not authorized to update this post' })
     }
   } else {
-    res.status(400).json({ message: 'Please insert ID.' })
+    res.status(400).json({ message: 'Could not find a valid id from the url' })
   }
-
-  //Default update function
-  // .then(post => {
-  //         if (!changes) {
-  //             res.status(404).json({ message: `Please fill out all information lines.`})
-  //         } else {
-  //             res.status(201).json({ message: `Post has been updated.`})
-  //         }
-  //     })
-  // .catch(err => {
-  //     res.status(500).json({ message: 'Error updating post' })
-  // })
 })
 // ------------------------------------------------|
 
 //Remove post
 //=================================================|
-router.delete('/:user_id', restricted, (req, res) => {
-  const { id } = req.params
+router.delete('/:id/user/:user_id', restricted, async (req, res) => {
+  const { id, user_id } = req.params
 
   if (id) {
-    Posts.remove(id)
-      .then(deleted => {
-        res.status(200).json({ message: `Post has been deleted.` })
+    if (req.decodedToken.sub === Number(user_id)) {
+      try {
+        const removed = await Posts.remove(id)
+
+        res.status(200).json({
+          message: 'Post was successfully deleted',
+          deleted: Boolean(removed)
+        })
+      } catch (err) {
+        res.status(500).json({
+          message: 'Error removing post from the database'
+        })
+      }
+    } else {
+      res.status(401).json({
+        message: 'You are not authorized to delete this post'
       })
-      .catch(err => {
-        res.status(500).json({ message: 'Error deleting post' })
-      })
+    }
   } else {
-    res.status(400).json({ message: 'Please insert ID.' })
+    res.status(400).json({ message: 'Could not find a valid id from the url' })
   }
 })
 // ------------------------------------------------|
