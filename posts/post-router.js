@@ -91,8 +91,8 @@ router.put('/:id', restricted, async (req, res) => {
   // pull the user_id from the changes
   const { user_id } = changes
 
-  // check if there is an id in the url
-  if (id) {
+  // check if there is a valid id in the url
+  if (Number(id)) {
     // Verify the user_id vs the token id to validate
     // the relationship between the updated post and
     // the user that is logged in
