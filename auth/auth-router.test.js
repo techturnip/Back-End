@@ -3,6 +3,7 @@
 const request = require('supertest')
 const server = require('../api/server.js')
 const db = require('../data/dbConfig.js')
+const knexCleaner = require('knex-cleaner')
 // ------------------------------------------------|
 // TESTING ========================================|
 // ================================================|
@@ -10,9 +11,14 @@ describe('the auth router', () => {
   // ==============================================|
   // SETUP FOR TESTING ----------------------------|
   // ==============================================|
+  // setup knex cleaner
+  const options = {
+    mode: 'truncate',
+    restartIdentity: true
+  }
   // reset before running tests -------------------|
   beforeEach(async () => {
-    await db('users').truncate()
+    return await knexCleaner.clean(db, options)
   })
   // define testUser ------------------------------|
   const testUser = {
@@ -67,7 +73,7 @@ describe('the auth router', () => {
         .expect(400)
     })
     // --------------------------------------------|
-    it('should respond with a 404 with incorrect username/password', async () => {
+    it('should respond with a 401 with incorrect username/password', async () => {
       // add test user
       await request(server)
         .post('/api/auth/register')
@@ -81,10 +87,10 @@ describe('the auth router', () => {
           username: 'incorrectUserName',
           password: 'incorrectUserPass'
         })
-        .expect(404)
+        .expect(401)
 
       expect(res.body.message).toBe(
-        'User does not exist, please review your username and password'
+        'Error logging in, please review your username and password'
       )
     })
     // --------------------------------------------|
