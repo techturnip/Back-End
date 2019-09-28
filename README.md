@@ -8,6 +8,111 @@ This repository contains the source code for the Back End API developed for the 
 
 [https://be-expat-journal.herokuapp.com/](https://be-expat-journal.herokuapp.com/)
 
+<details>
+	<summary>Seeded User List</summary>
+```
+id: 1
+username: Emilia56
+password: 'kk7RYACxba6mLBX'
+
+id: 2
+username: Fidel_Padberg86
+password: 'JVAVd1TKan8dv1k'
+
+id: 3
+username: Merritt_Little25
+password: 'mJNcF93Ljb43dgk'
+
+id: 4
+username: Coby.Gerhold51
+password: 'XOmitW5cHCTzSjP'
+
+id: 5
+username: Carson_Russel
+password: 'ywKi3f06KW8470O'
+
+id: 6
+username: Shad.Heidenreich65
+password: 'N5_1hibdYbDEkNW'
+
+id: 7
+username: Litzy_Auer61
+password: 'ahXhOPGb5lbp29u'
+
+id: 8
+username: Mike_Kuphal47
+password: 'xmMyfkwhbpBK51o'
+
+id: 9
+username: Cordie2
+password: 'HTvIavngzJyTKr6'
+
+id: 10
+username: Mose.Labadie33
+password: '9mzzg3f1hpNTkp7'
+
+id: 11
+username: Delilah_Harris63
+password: '0XVHgESIQXnGNQn'
+
+id: 12
+username: Gaetano.Yost47
+password: 'aGBQDU3kOh3lkJw'
+
+id: 13
+username: Angelita_Boyer14
+password: 'PWgM0r4l1Did0Hq'
+
+id: 14
+username: Jon.Reilly97
+password: 'vl67PqlcUMfkkGC'
+
+id: 15
+username: Mylene.Goyette
+password: 'BwbtjBHXJnvaJ_Q'
+
+id: 16
+username: Opal_Ondricka
+password: 'EYF3enIC541M8Q9'
+
+id: 17
+username: Thalia.Bechtelar87
+password: '2aL70jloZMU1H79'
+
+id: 18
+username: Myra.Effertz0
+password: 'rB4HtxvZlTvB0fC'
+
+id: 19
+username: Jaunita_Leannon60
+password: 'u_yGkuqfarqr3hq'
+
+id: 20
+username: Lorna68
+password: 's8vHnje7aTnCA_K'
+
+id: 21
+username: Loyce.Runte
+password: 'HlK9bqza13yEx7H'
+
+id: 22
+username: Adelle_Wisozk88
+password: 'um0C6fOJLhb8mtT'
+
+id: 23
+username: Christophe82
+password: 'O5bpP_HcNGV_b9l'
+
+id: 24
+username: Dortha.Mohr
+password: 'Rs4Il4QvS2auETO'
+
+id: 25
+username: Dylan.Mosciski
+password: 'CcUS3So7f7DL4O5'
+```
+</details>
+
 ### Endpoints
 
 ### Auth (implemented):
