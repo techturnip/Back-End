@@ -9,7 +9,6 @@ This repository contains the source code for the Back End API developed for the 
 [https://be-expat-journal.herokuapp.com/](https://be-expat-journal.herokuapp.com/)
 
 <details>
-	
 	<summary>Seeded User List</summary>
 	
 ```
