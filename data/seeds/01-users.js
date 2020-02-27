@@ -1,13 +1,36 @@
+const bcrypt = require('bcryptjs')
+const faker = require('faker')
 
-exports.seed = function(knex) {
-  // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
-};
+exports.seed = knex => {
+  // set empty array to store the generated users
+  const users = []
+  // set the number of users to generate
+  const numOfUsers = 25
+
+  // loop over the number of users
+  for (let i = 0; i < numOfUsers; i++) {
+    // store password to be ran through bcrypt
+    const password = faker.internet.password()
+
+    // each iteration will generate a user object
+    const user = {
+      fname: faker.name.firstName(),
+      lname: faker.name.lastName(),
+      email: faker.internet.email(),
+      username: faker.internet.userName(),
+      password: bcrypt.hashSync(password, 10)
+    }
+
+    // console.log() the id, username, and password
+    // so that the generated users can be used
+    console.log(
+      `id: ${i + 1}\nusername: ${user.username}\npassword: '${password}'\n`
+    )
+
+    // push the user to the array above
+    users.push(user)
+  }
+
+  // insert the array of users into the database
+  return knex('users').insert(users)
+}

@@ -42,14 +42,14 @@ exports.up = function(knex) {
       posts.string('title', 256).notNullable()
 
       // location
-      posts.string('city', 128)
-      posts.string('country', 128)
+      posts.string('city', 256)
+      posts.string('country', 256)
 
       // text content - REQUIRED
-      posts.string('content').notNullable()
+      posts.string('content', 1000).notNullable()
 
       // URL of the image
-      posts.string('imageURL')
+      posts.string('imageURL', 500)
 
       // timestamps for when the post was created
       posts.timestamps(true, true)
@@ -57,5 +57,5 @@ exports.up = function(knex) {
 }
 
 exports.down = function(knex) {
-  knex.schema.dropTableIfExists('users').dropTableIfExists('posts')
+  return knex.schema.dropTableIfExists('posts').dropTableIfExists('users')
 }
