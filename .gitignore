@@ -83,3 +83,5 @@ typings/
 # DB Files
 *.db
 *.db3
+
+/.history

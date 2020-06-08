@@ -1,40 +1,28 @@
 // IMPORTS/INITIALIZATION =========================|
 // ================================================|
-const db = require('../data/dbConfig.js')
+const db = require('../data/dbConfig.js');
 // ------------------------------------------------|
 // DEFINE DB HELPERS ==============================|
 // ================================================|
-const add = async user => {
-  const ids = await db('users')
-    .insert(user)
-    .returning('id')
+const add = async (user) => {
+  const ids = await db('users').insert(user).returning('id');
 
-  return findBy({ id: ids[0] })
-}
+  return findBy({ id: ids[0] });
+};
 // ------------------------------------------------|
 const update = async (id, changes) => {
-  await db('users')
-    .where({ id })
-    .update(changes)
+  await db('users').where({ id }).update(changes);
 
-  return await db('users')
-    .where({ id })
-    .first()
-}
+  return await db('users').where({ id }).first();
+};
 // ------------------------------------------------|
-const findBy = filter =>
-  db('users')
-    .where(filter)
-    .first()
+const findBy = (filter) => db('users').where(filter).first();
 // ------------------------------------------------|
-const findAll = () => db('users')
+const findAll = () => db('users');
 // ------------------------------------------------|
-const findById = id =>
-  db('users')
-    .where({ id })
-    .first()
+const findById = (id) => db('users').where({ id }).first();
 // ------------------------------------------------|
-const findUserPosts = id => {
+const findUserPosts = (id) => {
   return db('users as u')
     .join('posts as p', 'p.user_id', 'u.id')
     .where('p.user_id', id)
@@ -49,13 +37,10 @@ const findUserPosts = id => {
       'p.imageURL',
       'p.created_at',
       'p.updated_at'
-    )
-}
+    );
+};
 // ------------------------------------------------|
-const remove = id =>
-  db('users')
-    .where({ id })
-    .del()
+const remove = (id) => db('users').where({ id }).del();
 // EXPORT =========================================|
 // ================================================|
 module.exports = {
@@ -66,4 +51,4 @@ module.exports = {
   findAll,
   findById,
   findUserPosts
-}
+};
