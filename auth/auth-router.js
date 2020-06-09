@@ -73,7 +73,8 @@ router.post('/login', (req, res) => {
           // send back user and token
           res.status(200).json({
             message: 'Login was successful',
-            user,
+            username: user.username,
+            id: user.id,
             token
           });
         } else {
@@ -98,6 +99,8 @@ router.post('/login', (req, res) => {
 // ------------------------------------------------|
 // Define the token generator ---------------------|
 function generateToken(user) {
+  console.log(user);
+
   const payload = {
     sub: user.id,
     username: user.username

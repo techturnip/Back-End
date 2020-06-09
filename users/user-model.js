@@ -36,7 +36,8 @@ const findUserPosts = (id) => {
       'p.content',
       'p.imageURL',
       'p.created_at',
-      'p.updated_at'
+      'p.updated_at',
+      'p.id'
     );
 };
 // ------------------------------------------------|
