@@ -84,5 +84,4 @@ typings/
 *.db
 *.db3
 
-# History plugin
 /.history
