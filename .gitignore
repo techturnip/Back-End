@@ -83,3 +83,6 @@ typings/
 # DB Files
 *.db
 *.db3
+
+# History plugin
+/.history

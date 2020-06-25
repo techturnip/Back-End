@@ -18,12 +18,6 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-
-epsagon.init({
-  token: '4decc99e-357c-4eda-abe5-d5eec1770529',
-  appName: 'expat-prod',
-  metadataOnly: false
-});
 // ------------------------------------------------|
 // SETUP ROUTES ===================================|
 // ================================================|

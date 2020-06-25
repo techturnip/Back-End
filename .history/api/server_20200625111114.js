@@ -9,7 +9,6 @@ const authRouter = require('../auth/auth-router.js');
 const usersRouter = require('../users/user-router.js');
 const postsRouter = require('../posts/post-router.js');
 // setup for epsagon tracing ----------------------|
-const epsagon = require('epsagon-frameworks');
 // create express server --------------------------|
 const server = express();
 // ------------------------------------------------|
@@ -18,12 +17,6 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-
-epsagon.init({
-  token: '4decc99e-357c-4eda-abe5-d5eec1770529',
-  appName: 'expat-prod',
-  metadataOnly: false
-});
 // ------------------------------------------------|
 // SETUP ROUTES ===================================|
 // ================================================|
