@@ -112,8 +112,6 @@ describe('the auth router', () => {
       // destructure response
       const { token, user, message } = res.body;
 
-      console.log(res.body);
-
       // check the response object
       expect(message).toBe('Login was successful');
       expect(user).toEqual({

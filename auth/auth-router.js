@@ -70,8 +70,6 @@ router.post('/login', (req, res) => {
           delete user.password;
           delete user.email;
 
-          console.log(user);
-
           // send back user and token
           res.status(200).json({
             message: 'Login was successful',
