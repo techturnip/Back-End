@@ -70,11 +70,12 @@ router.post('/login', (req, res) => {
           delete user.password;
           delete user.email;
 
+          console.log(user);
+
           // send back user and token
           res.status(200).json({
             message: 'Login was successful',
-            username: user.username,
-            id: user.id,
+            user,
             token
           });
         } else {
@@ -99,8 +100,6 @@ router.post('/login', (req, res) => {
 // ------------------------------------------------|
 // Define the token generator ---------------------|
 function generateToken(user) {
-  console.log(user);
-
   const payload = {
     sub: user.id,
     username: user.username
