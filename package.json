@@ -33,7 +33,7 @@
     "cross-env": "^5.2.1",
     "dotenv": "^8.1.0",
     "epsagon-frameworks": "^1.13.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "faker": "^4.1.0",
     "helmet": "^3.19.0",
     "jsonwebtoken": "^8.5.1",
